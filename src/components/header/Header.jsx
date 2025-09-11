@@ -2,30 +2,26 @@ import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { TbSearch } from "react-icons/tb";
 import { CgShoppingCart } from "react-icons/cg";
-import { AiOutlineHeart } from "react-icons/ai";
 import "./Header.scss";
 import Search from "./Search/Search";
 import { Context } from "../../utils/context";
 import Cart from "../Cart/Cart";
 
 const Header = () => {
+    const { name, cartCount, showCart, setShowCart } = useContext(Context);
     const [scrolled, setScrolled] = useState(false);
     const [searchModal, setSearchModal] = useState(false);
     const navigate = useNavigate();
+
     const handleScroll = () => {
         const offset = window.scrollY;
-        if (offset > 200) {
-            setScrolled(true);
-        } else {
-            setScrolled(false);
-        }
+        setScrolled(offset > 200);
     };
 
     useEffect(() => {
         window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
     }, []);
-
-    const { cartCount, showCart, setShowCart } = useContext(Context);
 
     return (
         <>
@@ -35,15 +31,21 @@ const Header = () => {
                 <div className="header-content">
                     <ul className="left">
                         <li onClick={() => navigate("/")}>Home</li>
-                        <li onClick={() => navigate("/about")}>About</li>
-                        <li>Categories</li>
+                        <li>
+                            <a href="#Category">Categories</a>
+                        </li>
+                        <li>
+                            <a href="#Product">Products</a>
+                        </li>
+                        <li>
+                            <a href="#Footer">About</a>
+                        </li>
                     </ul>
                     <div className="center" onClick={() => navigate("/")}>
-                        JSDEVSTORE.
+                        {name?.data?.[0]?.name || "JSDEVSTORE"}
                     </div>
                     <div className="right">
                         <TbSearch onClick={() => setSearchModal(true)} />
-                        <AiOutlineHeart />
                         <span
                             className="cart-icon"
                             onClick={() => setShowCart(true)}

@@ -1,0 +1,20 @@
+{
+  "short_name": "ShopApp",
+  "name": "My Shopping App",
+  "icons": [
+    {
+      "src": "https://images-platform.99static.com//nG_f-mBjlSILF4-urkvpPkhQDZc=/164x164:1883x1883/fit-in/500x500/99designs-contests-attachments/152/152090/attachment_152090919",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://images-platform.99static.com//nG_f-mBjlSILF4-urkvpPkhQDZc=/164x164:1883x1883/fit-in/500x500/99designs-contests-attachments/152/152090/attachment_152090919",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#4a00e0",
+  "background_color": "#ffffff"
+}

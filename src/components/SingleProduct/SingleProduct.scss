@@ -13,7 +13,7 @@
         .single-product-page {
             display: flex;
             flex-direction: column;
-            @include md {
+            @include lg {
                 flex-direction: row;
             }
             .left {

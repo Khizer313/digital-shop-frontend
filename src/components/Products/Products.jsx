@@ -1,21 +1,25 @@
 import "./Products.scss";
 import Product from "./Product/Product";
+import Skeleton from "../skelton/Skelton";
 
-const Products = ({ products, innerPage, headingText }) => {
-    return (
-        <div className="products-container">
-            {!innerPage && <div className="sec-heading">{headingText}</div>}
-            <div className={`products ${innerPage ? "innerPage" : ""}`}>
-                {products?.data?.map((item) => (
-                    <Product
-                        key={item.id}
-                        id={item.id}
-                        data={item.attributes}
-                    />
-                ))}
-            </div>
-        </div>
-    );
+const Products = ({ products }) => {
+  const productItems = products?.data;
+  const showSkeleton = !productItems || productItems.length === 0;
+
+  return (
+    <div className="products-container" id="Products">
+      <h2 className="sec-heading">Our Products</h2>
+      <div className="products">
+        {showSkeleton
+          ? Array(4)
+              .fill(0)
+              .map((_, i) => <Skeleton key={i} type="product" />)
+          : productItems.map((item) => (
+              <Product key={item.id} data={item} id={item.id} />
+            ))}
+      </div>
+    </div>
+  );
 };
 
 export default Products;

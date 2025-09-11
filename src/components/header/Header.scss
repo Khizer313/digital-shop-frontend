@@ -22,11 +22,16 @@
             height: 80px;
         }
     }
+    a {
+    text-decoration: none;
+    color: inherit; 
+}
+
     .left {
         list-style-type: none;
         display: none;
         gap: 25px;
-        @include md {
+        @include lg {
             display: flex;
         }
         li {

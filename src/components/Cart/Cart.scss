@@ -93,44 +93,84 @@
         }
 
         .cart-footer {
-            border-top: 1px solid rgba(0, 0, 0, 0.1);
-            .subtotal {
-                padding: 20px 15px;
-                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-                display: flex;
-                justify-content: space-between;
-                .text {
-                    margin-bottom: 0;
-                    font-size: 20px;
-                    font-weight: 700;
-                    text-transform: uppercase;
-                    &.total {
-                        color: #8e2de2;
-                    }
-                }
-            }
-            .button {
-                padding: 20px 15px;
-                .checkout-cta {
-                    outline: 0;
-                    border: 0;
-                    height: 50px;
-                    width: 100%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    cursor: pointer;
-                    font-size: 16px;
-                    color: white;
-                    background: #8e2de2;
-                    border-bottom: 3px solid #6516aa;
-                    text-transform: uppercase;
-                    svg {
-                        margin-right: 10px;
-                    }
-                }
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+
+    .subtotal {
+        padding: 20px 15px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-between;
+
+        .text {
+            margin-bottom: 0;
+            font-size: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+
+            &.total {
+                color: #8e2de2;
             }
         }
+    }
+
+    .button {
+        padding: 20px 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        // WhatsApp Button
+        .whatsapp-cta {
+            height: 50px;
+            width: 100%;
+            background: #0d7f37; // WhatsApp green
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s all;
+
+            &:hover {
+                background: #1ebe57;
+            }
+        }
+
+        // Checkout Button
+        .checkout-cta {
+            height: 50px;
+            width: 100%;
+            background: #8e2de2;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s all;
+
+            &.disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+                background: #8e2de2;
+            }
+
+            &:hover:not(.disabled) {
+                background: #6b1dbb;
+            }
+        }
+    }
+}
+
     }
 }
 
