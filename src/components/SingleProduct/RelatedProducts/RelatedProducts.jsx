@@ -8,9 +8,7 @@ const RelatedProducts = ({ categoryId, productId }) => {
     `/api/products?populate=*&filters[id][$ne]=${productId}&filters[categories][id]=${categoryId}&pagination[start]=0&pagination[limit]=4`
   );
 
-  if (loading || !data) {
-    return <Skeleton type="products-grid" />;
-  }
+  if (loading || !data) return <Skeleton type="products-grid" />;
 
   return (
     <div className="related-products">

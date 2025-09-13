@@ -1,3 +1,4 @@
+import { HelmetProvider } from "react-helmet-async";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.scss";
 
@@ -12,23 +13,24 @@ import Cancel from "./Cancel";
 import Success from "./Success";
 
 function App() {
-
-    return (
-        <BrowserRouter>
-            <AppContext>
-                <Header />
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/category/:id" element={<Category />} />
-                    <Route path="/product/:id" element={<SingleProduct />} />
-                       <Route path="/success" element={<Success />} />
-        <Route path="/cancel" element={<Cancel />} />
-                </Routes>
-                <Newsletter />
-                <Footer />
-            </AppContext>
-        </BrowserRouter>
-    );
+  return (
+    <HelmetProvider>
+      <BrowserRouter>
+        <AppContext>
+          <Header />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/category/:id" element={<Category />} />
+            <Route path="/product/:id" element={<SingleProduct />} />
+            <Route path="/success" element={<Success />} />
+            <Route path="/cancel" element={<Cancel />} />
+          </Routes>
+          <Newsletter />
+          <Footer />
+        </AppContext>
+      </BrowserRouter>
+    </HelmetProvider>
+  );
 }
 
 export default App;

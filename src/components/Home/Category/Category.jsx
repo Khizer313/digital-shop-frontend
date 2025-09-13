@@ -1,16 +1,32 @@
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import "./Category.scss";
 import Skeleton from "../../skelton/Skelton";
 
 const Category = ({ categories }) => {
   const navigate = useNavigate();
 
-  // Permanent skeleton fallback
   const categoryItems = categories?.data;
   const showSkeleton = !categoryItems || categoryItems.length === 0;
 
+  // For SEO: Use first category as representative or fallback
+  const firstCategory = categoryItems && categoryItems[0];
+  const pageTitle = firstCategory?.title || "Shop Categories | JSDEV STORE";
+  const pageDesc =
+    firstCategory?.description ||
+    "Explore our wide range of categories and find the best products.";
+
   return (
     <div id="Category" className="shop-by-category">
+      <Helmet>
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDesc} />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDesc} />
+        <meta property="og:image" content="/logo192.png" />
+        <link rel="canonical" href={window.location.href} />
+      </Helmet>
+
       <div className="categories">
         {showSkeleton
           ? Array(4)

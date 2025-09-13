@@ -1,9 +1,10 @@
-import { useContext, useState } from "react";
-import { Context } from "../../utils/context";
+import React, { useContext, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { Helmet } from "react-helmet-async"; // ✅ Helmet import
 import useFetch from "../../hooks/useFetch";
 import RelatedProducts from "./RelatedProducts/RelatedProducts";
 import Skeleton from "../skelton/Skelton";
+import { Context } from "../../utils/context";
 import {
   FaFacebookF,
   FaTwitter,
@@ -23,24 +24,40 @@ const SingleProduct = () => {
     `/api/products?populate=*&[filters][id]=${id}`
   );
 
-  const decrement = () => setQuantity((prev) => (prev === 1 ? 1 : prev - 1));
-  const increment = () => setQuantity((prev) => prev + 1);
+  const decrement = () => setQuantity(prev => (prev === 1 ? 1 : prev - 1));
+  const increment = () => setQuantity(prev => prev + 1);
 
   if (loading || !data) {
-    // Skeleton for single product
     return <Skeleton type="single-product" />;
   }
 
   const product = data?.data?.[0];
 
+  // Safe image URL
   const imgUrl =
     process.env.REACT_APP_STRIPE_APP_DEV_URL +
     (Array.isArray(product?.img) && product?.img.length > 0
       ? product.img[0].url
-      : "");
+      : "/logo192.png");
 
   return (
     <div className="single-product-main-content">
+      {/* ✅ Helmet for SEO */}
+      <Helmet>
+        <title>{product?.title || "Product | JSDEV STORE"}</title>
+        <meta
+          name="description"
+          content={product?.desc || "Check out this product on JSDEV STORE"}
+        />
+        <meta property="og:title" content={product?.title || "Product | JSDEV STORE"} />
+        <meta
+          property="og:description"
+          content={product?.desc || "Check out this product on JSDEV STORE"}
+        />
+        <meta property="og:image" content={imgUrl} />
+        <link rel="canonical" href={window.location.href} />
+      </Helmet>
+
       <div className="layout">
         <div className="single-product-page">
           <div className="left">

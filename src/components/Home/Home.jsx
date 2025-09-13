@@ -1,4 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
+import { Helmet } from "react-helmet-async"; // ✅ Helmet import
 import "./Home.scss";
 import Banner from "./Banner/Banner";
 import Category from "./Category/Category";
@@ -25,28 +26,28 @@ const Home = () => {
 
   // --- Fetch products & categories ---
   useEffect(() => {
+    const getProducts = () => {
+      setLoadingProducts(true);
+      fetchDataFromApi("/api/products?populate=*")
+        .then((res) => setProducts(res))
+        .finally(() => setLoadingProducts(false));
+    };
+
+    const getCategories = () => {
+      setLoadingCategories(true);
+      fetchDataFromApi("/api/categories?populate=*")
+        .then((res) => setCategories(res))
+        .finally(() => setLoadingCategories(false));
+    };
+
     getProducts();
     getCategories();
-  }, []);
-
-  const getProducts = () => {
-    setLoadingProducts(true);
-    fetchDataFromApi("/api/products?populate=*")
-      .then((res) => setProducts(res))
-      .finally(() => setLoadingProducts(false));
-  };
-
-  const getCategories = () => {
-    setLoadingCategories(true);
-    fetchDataFromApi("/api/categories?populate=*")
-      .then((res) => setCategories(res))
-      .finally(() => setLoadingCategories(false));
-  };
+  }, [setProducts, setCategories]);
 
   // --- Fetch other data ---
-  useEffect(() => { fetchDataFromApi("/api/names").then(setName); }, []);
-  useEffect(() => { fetchDataFromApi("/api/abouts").then((res) => setAbouts(res.data)); }, []);
-  useEffect(() => { fetchDataFromApi("/api/contacts").then((res) => setContacts(res.data)); }, []);
+  useEffect(() => { fetchDataFromApi("/api/names").then(setName); }, [setName]);
+  useEffect(() => { fetchDataFromApi("/api/abouts").then((res) => setAbouts(res.data)); }, [setAbouts]);
+  useEffect(() => { fetchDataFromApi("/api/contacts").then((res) => setContacts(res.data)); }, [setContacts]);
 
   // --- Auto notifications ---
   useEffect(() => {
@@ -91,21 +92,22 @@ const Home = () => {
     return () => timers.forEach((t) => clearInterval(t));
   }, []);
 
+  // --- Dynamic SEO ---
+  const pageTitle = name?.data?.attributes?.title || "JSDEV | STORE";
+  const pageDesc =
+    name?.data?.attributes?.description ||
+    "Best online store for electronics and gadgets.";
+
   return (
     <div>
-      {/* Manual test notification */}
-      <button
-        onClick={() => {
-          if ("Notification" in window && Notification.permission === "granted") {
-            new Notification("Test Notification", {
-              body: "This is a test 🔔",
-              icon: "/logo192.png",
-            });
-          }
-        }}
-      >
-        Test Notification
-      </button>
+      <Helmet>
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDesc} />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDesc} />
+        <meta property="og:image" content="/logo192.png" />
+        <link rel="canonical" href={window.location.href} />
+      </Helmet>
 
       <Banner />
       <div className="main-content">
