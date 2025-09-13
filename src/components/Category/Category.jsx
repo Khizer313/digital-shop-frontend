@@ -1,9 +1,9 @@
 import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import useFetch from "../../hooks/useFetch";
-import Products from "../Products/Products";
+import useFetch from "../../hooks/useFetch.js";
+import Products from "../Products/Products.jsx";
 import "./Category.scss";
-import Skeleton from "../skelton/Skelton";
+import Skeleton from "../skelton/Skelton.jsx";
 
 const Category = () => {
   const { id } = useParams();

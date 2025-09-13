@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
+import App from './App.js';
 import './index.scss';
-import * as serviceWorkerRegistration from './serviceWorkerRegistration';
-import { fetchDataFromApi } from './utils/api';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration.js';
+import { fetchDataFromApi } from './utils/api.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

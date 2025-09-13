@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { MdClose } from "react-icons/md";
 import { Helmet } from "react-helmet-async";
 import "./Search.scss";
-import useFetch from "../../../hooks/useFetch";
+import useFetch from "../../../hooks/useFetch.js";
 import { useNavigate } from "react-router-dom";
 
 const Search = ({ setSearchModal }) => {

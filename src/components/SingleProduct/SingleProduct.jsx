@@ -1,10 +1,10 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async"; // ✅ Helmet import
-import useFetch from "../../hooks/useFetch";
-import RelatedProducts from "./RelatedProducts/RelatedProducts";
-import Skeleton from "../skelton/Skelton";
-import { Context } from "../../utils/context";
+import useFetch from "../../hooks/useFetch.js";
+import RelatedProducts from "./RelatedProducts/RelatedProducts.jsx";
+import Skeleton from "../skelton/Skelton.jsx";
+import { Context } from "../../utils/context.js";
 import {
   FaFacebookF,
   FaTwitter,

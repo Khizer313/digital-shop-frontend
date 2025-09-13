@@ -1,6 +1,6 @@
 import "./Products.scss";
-import Product from "./Product/Product";
-import Skeleton from "../skelton/Skelton";
+import Product from "./Product/Product.jsx";
+import Skeleton from "../skelton/Skelton.jsx";
 
 const Products = ({ products }) => {
   const productItems = products?.data;

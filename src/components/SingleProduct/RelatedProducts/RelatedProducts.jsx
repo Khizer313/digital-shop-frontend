@@ -1,7 +1,6 @@
-import React from "react";
-import useFetch from "../../../hooks/useFetch";
-import Products from "../../Products/Products";
-import Skeleton from "../../skelton/Skelton";
+import useFetch from "../../../hooks/useFetch.js";
+import Products from "../../Products/Products.jsx";
+import Skeleton from "../../skelton/Skelton.jsx";
 
 const RelatedProducts = ({ categoryId, productId }) => {
   const { data, loading } = useFetch(

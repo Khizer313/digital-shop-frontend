@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import "./Footer.scss";
 import { FaLocationArrow, FaMobileAlt, FaEnvelope } from "react-icons/fa";
 import Payment from "../../assets/payments.png";
-import { Context } from "../../utils/context";
+import { Context } from "../../utils/context.js";
 import { Helmet } from "react-helmet-async";
 
 const Footer = () => {

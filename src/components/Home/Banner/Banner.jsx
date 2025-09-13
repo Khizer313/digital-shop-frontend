@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async"; // ✅ Helmet for SEO
 import "./Banner.scss";
 import BannerImg from "../../../assets/banner-img.png";
-import { Context } from "../../../utils/context";
+import { Context } from "../../../utils/context.js";
 
 const Banner = () => {
   const { abouts } = useContext(Context);

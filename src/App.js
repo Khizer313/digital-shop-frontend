@@ -2,15 +2,15 @@ import { HelmetProvider } from "react-helmet-async";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.scss";
 
-import Header from "./components/Header/Header";
-import Footer from "./components/Footer/Footer";
-import Home from "./components/Home/Home";
-import Category from "./components/Category/Category";
-import SingleProduct from "./components/SingleProduct/SingleProduct";
-import Newsletter from "./components/Footer/Newsletter/Newsletter";
-import AppContext from "./utils/context";
-import Cancel from "./Cancel";
-import Success from "./Success";
+import Header from "./components/Header/Header.jsx";
+import Footer from "./components/Footer/Footer.jsx";
+import Home from "./components/Home/Home.jsx";
+import Category from "./components/Category/Category.jsx";
+import SingleProduct from "./components/SingleProduct/SingleProduct.jsx";
+import Newsletter from "./components/Footer/Newsletter/Newsletter.jsx";
+import AppContext from "./utils/context.js";
+import Cancel from "./Cancel.jsx";
+import Success from "./Success.jsx";
 
 function App() {
   return (

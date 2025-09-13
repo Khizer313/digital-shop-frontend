@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import "./Category.scss";
-import Skeleton from "../../skelton/Skelton";
+import Skeleton from "../../skelton/Skelton.jsx";
 
 const Category = ({ categories }) => {
   const navigate = useNavigate();

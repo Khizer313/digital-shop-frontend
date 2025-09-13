@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Context } from "../../../utils/context";
+import { Context } from "../../../utils/context.js";
 import { MdClose } from "react-icons/md";
 import "./CartItem.scss";
 

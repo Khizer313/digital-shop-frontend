@@ -1,11 +1,11 @@
 import React, { useContext, useState } from "react";
 import { MdClose } from "react-icons/md";
 import { BsCartX } from "react-icons/bs";
-import { Context } from "../../utils/context";
-import CartItem from "./CartItem/CartItem";
+import { Context } from "../../utils/context.js";
+import CartItem from "./CartItem/CartItem.jsx";
 import { loadStripe } from "@stripe/stripe-js";
-import { makePaymentRequest } from "../../utils/api";
-import UserDetailsPopup from "./userDetails/UserDetailsPopup"; // ✅ import
+import { makePaymentRequest } from "../../utils/api.js";
+import UserDetailsPopup from "./userDetails/UserDetailsPopup.jsx"; // ✅ import
 
 import "./Cart.scss";
 import { useNavigate } from "react-router-dom";

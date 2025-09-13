@@ -1,11 +1,11 @@
 import React, { useEffect, useContext, useState } from "react";
 import { Helmet } from "react-helmet-async"; // ✅ Helmet import
 import "./Home.scss";
-import Banner from "./Banner/Banner";
-import Category from "./Category/Category";
-import Products from "../Products/Products";
+import Banner from "./Banner/Banner.jsx";
+import Category from "./Category/Category.jsx";
+import Products from "../Products/Products.jsx";
 import { fetchDataFromApi } from "../../utils/api";
-import { Context } from "../../utils/context";
+import { Context } from "../../utils/context.js";
 
 const Home = () => {
   const {
