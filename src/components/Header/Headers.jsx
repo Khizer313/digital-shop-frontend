@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { TbSearch } from "react-icons/tb";
 import { CgShoppingCart } from "react-icons/cg";
 import { Helmet } from "react-helmet-async";
-import "./Header.scss";
+import "./Headers.scss";
 import Search from "./Search/Search.jsx";
 import { Context } from "../../utils/context.js";
 import Cart from "../Cart/Cart.jsx";
