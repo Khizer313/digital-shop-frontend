@@ -4,16 +4,17 @@ import "./Product.scss";
 
 const Product = ({ data, id }) => {
   const navigate = useNavigate();
-  //  console.log("Single Product Data:",  id);
 
-  // Safe image handling
+  // Handle single or array images
   const imgUrl =
     process.env.REACT_APP_STRIPE_APP_DEV_URL +
-    (Array.isArray(data?.img) ? data.img[0]?.url : data?.img?.url || "");
+    (Array.isArray(data?.img)
+      ? data.img[0]?.url || ""
+      : data?.img?.url || "");
 
   return (
     <div
-    id="Product"
+      id="Product"
       className="product-card"
       onClick={() => navigate("/product/" + id)}
     >
@@ -22,9 +23,7 @@ const Product = ({ data, id }) => {
       </div>
       <div className="prod-details">
         <span className="name">{data?.title}</span>
-        <span className="price">
-          ₹{data?.price ? data.price : "N/A"}
-        </span>
+        <span className="price">₹{data?.price || "N/A"}</span>
       </div>
     </div>
   );
