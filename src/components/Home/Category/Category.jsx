@@ -5,11 +5,9 @@ import Skeleton from "../../skelton/Skelton.jsx";
 
 const Category = ({ categories }) => {
   const navigate = useNavigate();
-
   const categoryItems = categories?.data;
   const showSkeleton = !categoryItems || categoryItems.length === 0;
 
-  // For SEO: Use first category as representative or fallback
   const firstCategory = categoryItems && categoryItems[0];
   const pageTitle = firstCategory?.title || "Shop Categories | JSDEV STORE";
   const pageDesc =
@@ -35,14 +33,18 @@ const Category = ({ categories }) => {
           : categoryItems.map((item) => {
               const imgUrl =
                 process.env.REACT_APP_STRIPE_APP_DEV_URL +
-                (item?.img?.url || item?.img?.formats?.small?.url || "");
+                (item?.img?.url ||
+                  item?.img?.formats?.small?.url ||
+                  "");
               return (
                 <div
                   key={item.id}
-                  className="category"
+                  className="category-card"
                   onClick={() => navigate(`/category/${item.id}`)}
                 >
-                  <img src={imgUrl} alt={item?.title || "Category"} />
+                  <div className="category-img">
+                    <img src={imgUrl} alt={item?.title || "Category"} />
+                  </div>
                   <h3>{item?.title}</h3>
                 </div>
               );
