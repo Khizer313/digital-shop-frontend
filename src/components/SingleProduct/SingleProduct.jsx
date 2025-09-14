@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Helmet } from "react-helmet-async"; // ✅ Helmet import
+import { Helmet } from "react-helmet-async";
 import useFetch from "../../hooks/useFetch.js";
 import RelatedProducts from "./RelatedProducts/RelatedProducts.jsx";
 import Skeleton from "../skelton/Skelton.jsx";
@@ -24,16 +24,13 @@ const SingleProduct = () => {
     `/api/products?populate=*&[filters][id]=${id}`
   );
 
-  const decrement = () => setQuantity(prev => (prev === 1 ? 1 : prev - 1));
-  const increment = () => setQuantity(prev => prev + 1);
+  const decrement = () => setQuantity((prev) => (prev === 1 ? 1 : prev - 1));
+  const increment = () => setQuantity((prev) => prev + 1);
 
-  if (loading || !data) {
-    return <Skeleton type="single-product" />;
-  }
+  if (loading || !data) return <Skeleton type="single-product" />;
 
   const product = data?.data?.[0];
 
-  // Safe image URL
   const imgUrl =
     process.env.REACT_APP_STRIPE_APP_DEV_URL +
     (Array.isArray(product?.img) && product?.img.length > 0
@@ -42,7 +39,6 @@ const SingleProduct = () => {
 
   return (
     <div className="single-product-main-content">
-      {/* ✅ Helmet for SEO */}
       <Helmet>
         <title>{product?.title || "Product | JSDEV STORE"}</title>
         <meta
@@ -61,12 +57,9 @@ const SingleProduct = () => {
       <div className="layout">
         <div className="single-product-page">
           <div className="left">
-            {imgUrl ? (
-              <img src={imgUrl} alt={product?.title} />
-            ) : (
-              <div className="no-image">Image not available</div>
-            )}
+            <img src={imgUrl} alt={product?.title} />
           </div>
+
           <div className="right">
             <span className="name">{product?.title}</span>
             <span className="price">
@@ -93,10 +86,10 @@ const SingleProduct = () => {
             </div>
 
             <span className="divider" />
+
             <div className="info-item">
               <span className="text-bold">
-                Category:{" "}
-                <span>{product?.categories?.[0]?.title || "N/A"}</span>
+                Category: <span>{product?.categories?.[0]?.title || "N/A"}</span>
               </span>
               <span className="text-bold">
                 Share:
