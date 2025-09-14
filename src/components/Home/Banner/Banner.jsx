@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "react-helmet-async"; // ✅ Helmet for SEO
 import "./Banner.scss";
 import BannerImg from "../../../assets/banner-img.png";
 import { Context } from "../../../utils/context.js";
@@ -24,6 +24,7 @@ const Banner = () => {
     };
 
     window.addEventListener("beforeinstallprompt", beforeInstallHandler);
+
     window.addEventListener("appinstalled", () => {
       setIsInstalled(true);
       setDeferredPrompt(null);
@@ -43,13 +44,16 @@ const Banner = () => {
     if (!deferredPrompt) return;
     deferredPrompt.prompt();
     const choiceResult = await deferredPrompt.userChoice;
-    if (choiceResult.outcome === "accepted") setIsInstalled(true);
+    if (choiceResult.outcome === "accepted") {
+      setIsInstalled(true);
+    }
     setDeferredPrompt(null);
     setCanInstall(false);
   };
 
   return (
     <div className="hero-banner">
+      {/* --- SEO --- */}
       <Helmet>
         <title>{heading}</title>
         <meta name="description" content={description} />
