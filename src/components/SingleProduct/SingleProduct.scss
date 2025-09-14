@@ -20,22 +20,27 @@
         flex-direction: row;
       }
 
-      .left {
-        width: 100%;
-        background-color: rgba(0, 0, 0, 0.05);
-        flex-shrink: 0;
-        @include md {
-          width: 600px;
-          height: 600px;
-        }
+     .left {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.05);
+  flex-shrink: 0;
+  display: flex;           // ✅ Add flex
+  align-items: center;     // ✅ vertically center
+  justify-content: center; // ✅ horizontally center
+  @include md {
+    width: 600px;
+    height: 600px;
+  }
 
-        img {
-          width: 100%;
-          height: 100%;
-          object-fit: contain; // ✅ ensures image fits nicely
-          display: block;
-        }
-      }
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;  // ✅ cover instead of contain
+    display: block;
+    border-radius: 8px; // optional, for nice edges
+  }
+}
+
 
       .right {
         display: flex;
