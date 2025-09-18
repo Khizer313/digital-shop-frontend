@@ -5,9 +5,13 @@ import "./Product.scss";
 const Product = ({ data, id }) => {
   const navigate = useNavigate();
 
-  // Cloudinary image URL handling
-  const imgUrl =
-    data?.attributes?.image?.data?.[0]?.attributes?.url || "/placeholder.png";
+  // Image URL handling (Cloudinary OR local Strapi upload)
+  const rawUrl =
+    data?.attributes?.image?.data?.[0]?.attributes?.url || "";
+
+  const imgUrl = rawUrl.startsWith("http")
+    ? rawUrl
+    : process.env.REACT_APP_STRIPE_APP_DEV_URL + rawUrl || "/placeholder.png";
 
   return (
     <div
