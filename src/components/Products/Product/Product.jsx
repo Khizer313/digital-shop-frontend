@@ -5,14 +5,14 @@ import "./Product.scss";
 const Product = ({ data, id }) => {
   const navigate = useNavigate();
 
-  // Image URL handling (Cloudinary OR local Strapi upload)
   const rawUrl = data?.attributes?.image?.data?.[0]?.attributes?.url || "";
 
-  // Agar Cloudinary ya koi external url hai to direct use karo,
-  // warna backend domain prepend karo
-  const imgUrl = rawUrl.startsWith("http")
-    ? rawUrl
-    : (process.env.REACT_APP_STRIPE_APP_DEV_URL || "http://localhost:1337") + rawUrl;
+  // ✅ Fix: Agar "http" ya "https" se shuru hoti hai to waise hi use karo
+  // warna backend ke domain se prepend karo
+  const imgUrl =
+    rawUrl.startsWith("http://") || rawUrl.startsWith("https://")
+      ? rawUrl
+      : (process.env.REACT_APP_STRIPE_APP_DEV_URL || "http://localhost:1337") + rawUrl;
 
   return (
     <div
