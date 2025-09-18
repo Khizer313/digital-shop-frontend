@@ -12,7 +12,9 @@ const Products = ({ products }) => {
 
       <div className="products">
         {showSkeleton
-          ? Array.from({ length: 4 }, (_, i) => <Skeleton key={i} type="product" />)
+          ? Array.from({ length: 4 }, (_, i) => (
+              <Skeleton key={i} type="product" />
+            ))
           : productItems.map((item) => (
               <Product key={item.id} data={item} id={item.id} />
             ))}
