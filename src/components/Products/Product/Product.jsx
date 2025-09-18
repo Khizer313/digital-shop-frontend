@@ -15,6 +15,7 @@ const Product = ({ data, id }) => {
   const imgUrl = rawUrl.startsWith("/")
     ? (process.env.REACT_APP_STRIPE_APP_DEV_URL || "http://localhost:1337") + rawUrl
     : rawUrl;
+console.log("RAW URL:", data?.attributes?.image?.data?.[0]?.attributes?.url);
 
   return (
     <div
