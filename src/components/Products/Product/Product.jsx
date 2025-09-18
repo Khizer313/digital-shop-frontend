@@ -6,12 +6,13 @@ const Product = ({ data, id }) => {
   const navigate = useNavigate();
 
   // Image URL handling (Cloudinary OR local Strapi upload)
-  const rawUrl =
-    data?.attributes?.image?.data?.[0]?.attributes?.url || "";
+  const rawUrl = data?.attributes?.image?.data?.[0]?.attributes?.url || "";
 
+  // Agar Cloudinary ya koi external url hai to direct use karo,
+  // warna backend domain prepend karo
   const imgUrl = rawUrl.startsWith("http")
     ? rawUrl
-    : process.env.REACT_APP_STRIPE_APP_DEV_URL + rawUrl || "/placeholder.png";
+    : (process.env.REACT_APP_API_URL || "http://localhost:1337") + rawUrl;
 
   return (
     <div
@@ -20,7 +21,10 @@ const Product = ({ data, id }) => {
       onClick={() => navigate("/product/" + id)}
     >
       <div className="thumbnail">
-        <img alt={data?.attributes?.title || "Product Image"} src={imgUrl} />
+        <img
+          alt={data?.attributes?.title || "Product Image"}
+          src={imgUrl || "/placeholder.png"}
+        />
       </div>
       <div className="prod-details">
         <span className="name">{data?.attributes?.title}</span>
