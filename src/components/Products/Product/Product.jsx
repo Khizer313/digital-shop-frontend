@@ -6,16 +6,17 @@ const Product = ({ data, id }) => {
   const navigate = useNavigate();
 
   // --- Image URL handling ---
-  const rawUrl =
-    data?.attributes?.image?.data?.[0]?.attributes?.url ||
-    data?.attributes?.image?.data?.[0]?.attributes?.formats?.small?.url ||
-    "";
+  const imageData = data?.attributes?.image?.data?.[0]?.attributes;
 
-  // ✅ Only prepend backend URL if it's relative (starts with "/")
+  // Pehle direct Cloudinary ya absolute URL check karo
+  let rawUrl = imageData?.url || imageData?.formats?.small?.url || "";
+
+  // ✅ Agar relative path hai ("/uploads/..."), tabhi backend URL prepend karna
   const imgUrl = rawUrl.startsWith("/")
-    ? (process.env.REACT_APP_STRIPE_APP_DEV_URL || "http://localhost:1337") + rawUrl
+    ? `${process.env.REACT_APP_STRIPE_APP_DEV_URL || "http://localhost:1337"}${rawUrl}`
     : rawUrl;
-console.log("RAW URL:", data?.attributes?.image?.data?.[0]?.attributes?.url);
+
+  console.log("Product Image URL =>", imgUrl);
 
   return (
     <div
@@ -24,7 +25,10 @@ console.log("RAW URL:", data?.attributes?.image?.data?.[0]?.attributes?.url);
       onClick={() => navigate("/product/" + id)}
     >
       <div className="thumbnail">
-        <img alt={data?.attributes?.title || "Product Image"} src={imgUrl} />
+        <img
+          alt={data?.attributes?.title || "Product Image"}
+          src={imgUrl || "/placeholder.png"}
+        />
       </div>
       <div className="prod-details">
         <span className="name">{data?.attributes?.title}</span>
