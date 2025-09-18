@@ -30,25 +30,28 @@ const Category = ({ categories }) => {
           ? Array(4)
               .fill(0)
               .map((_, i) => <Skeleton key={i} type="category" />)
-          : categoryItems.map((item) => {
-              const imgUrl =
-                process.env.REACT_APP_STRIPE_APP_DEV_URL +
-                (item?.img?.url ||
-                  item?.img?.formats?.small?.url ||
-                  "");
-              return (
-                <div
-                  key={item.id}
-                  className="category-card"
-                  onClick={() => navigate(`/category/${item.id}`)}
-                >
-                  <div className="category-img">
-                    <img src={imgUrl} alt={item?.title || "Category"} />
-                  </div>
-                  <h3>{item?.title}</h3>
-                </div>
-              );
-            })}
+         : categoryItems.map((item) => {
+    const imgPath =
+      item?.img?.url || item?.img?.formats?.small?.url || "";
+
+    const imgUrl = imgPath.startsWith("http")
+      ? imgPath
+      : process.env.REACT_APP_STRIPE_APP_DEV_URL + imgPath;
+
+    return (
+      <div
+        key={item.id}
+        className="category-card"
+        onClick={() => navigate(`/category/${item.id}`)}
+      >
+        <div className="category-img">
+          <img src={imgUrl} alt={item?.title || "Category"} />
+        </div>
+        <h3>{item?.title}</h3>
+      </div>
+    );
+  })
+}
       </div>
     </div>
   );
