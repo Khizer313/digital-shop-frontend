@@ -12,7 +12,7 @@ const Product = ({ data, id }) => {
   // warna backend domain prepend karo
   const imgUrl = rawUrl.startsWith("http")
     ? rawUrl
-    : (process.env.REACT_APP_API_URL || "http://localhost:1337") + rawUrl;
+    : (process.env.REACT_APP_STRIPE_APP_DEV_URL || "http://localhost:1337") + rawUrl;
 
   return (
     <div
