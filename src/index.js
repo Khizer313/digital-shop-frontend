@@ -46,4 +46,3 @@ serviceWorkerRegistration.register().then(async () => {
   }
 });
 
-// console.log("End of index.js");
