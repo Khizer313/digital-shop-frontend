@@ -8,13 +8,14 @@ const Product = ({ data, id }) => {
   // --- Image URL handling ---
   const imageData = data?.attributes?.image?.data?.[0]?.attributes;
 
-  // Pehle direct Cloudinary ya absolute URL check karo
+  // URL nikaalo
   let rawUrl = imageData?.url || imageData?.formats?.small?.url || "";
 
-  // ✅ Agar relative path hai ("/uploads/..."), tabhi backend URL prepend karna
-  const imgUrl = rawUrl.startsWith("/")
-    ? `${process.env.REACT_APP_STRIPE_APP_DEV_URL || "http://localhost:1337"}${rawUrl}`
-    : rawUrl;
+  // ✅ Agar absolute (http/https) hai → as-is use karo
+  // ✅ Agar relative ("/uploads/...") hai → backend prepend karo
+  const imgUrl = rawUrl.startsWith("http")
+    ? rawUrl
+    : `${process.env.REACT_APP_STRIPE_APP_DEV_URL || "http://localhost:1337"}${rawUrl}`;
 
   console.log("Product Image URL =>", imgUrl);
 

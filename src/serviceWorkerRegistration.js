@@ -13,7 +13,7 @@ export function register(config) {
     return navigator.serviceWorker
       .register(swUrl)
       .then((registration) => {
-        console.log('Service Worker registered:', registration);
+        // console.log('Service Worker registered:', registration);
         if (config && config.onSuccess) config.onSuccess(registration);
         return registration;
       })

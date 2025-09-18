@@ -12,11 +12,11 @@ export const fetchDataFromApi = async (url) => {
             process.env.REACT_APP_STRIPE_APP_DEV_URL + url,
             params
         );
-        console.log(data,"hmmmmmmmm");
+        // console.log(data,"hmmmmmmmm");
         
         return data;
     } catch (err) {
-        console.log(err);
+        // console.log(err);
         return err;
     }
 };

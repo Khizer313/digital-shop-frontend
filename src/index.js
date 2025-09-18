@@ -12,14 +12,14 @@ root.render(
   </React.StrictMode>
 );
 
-console.log("Before SW register");
+// console.log("Before SW register");
 
 // ✅ Register Service Worker
 serviceWorkerRegistration.register().then(async () => {
-  console.log("SW registered");
+  // console.log("SW registered");
 
   const registration = await navigator.serviceWorker.ready;
-  console.log("SW ready:", registration);
+  // console.log("SW ready:", registration);
 
   try {
     // Fetch notifications from Strapi
@@ -30,7 +30,7 @@ serviceWorkerRegistration.register().then(async () => {
       mint: n.mint,
     })) || [];
 
-    console.log("Notifications to send SW:", notifications);
+    // console.log("Notifications to send SW:", notifications);
 
     // Send notifications to SW
     if (navigator.serviceWorker.controller) {
@@ -46,4 +46,4 @@ serviceWorkerRegistration.register().then(async () => {
   }
 });
 
-console.log("End of index.js");
+// console.log("End of index.js");
