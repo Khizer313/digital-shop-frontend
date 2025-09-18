@@ -4,13 +4,15 @@ import "./Product.scss";
 
 const Product = ({ data, id }) => {
   const navigate = useNavigate();
+  const baseUrl = process.env.REACT_APP_STRIPE_APP_DEV_URL;
 
-  // Handle single or array images
-  const imgUrl =
-    process.env.REACT_APP_STRIPE_APP_DEV_URL +
-    (Array.isArray(data?.img)
-      ? data.img[0]?.url || ""
-      : data?.img?.url || "");
+  const imgUrl = Array.isArray(data?.img)
+    ? (data.img[0]?.url?.startsWith("http")
+        ? data.img[0].url
+        : baseUrl + data.img[0].url)
+    : (data?.img?.url?.startsWith("http")
+        ? data.img.url
+        : baseUrl + data?.img?.url);
 
   return (
     <div
