@@ -10,7 +10,7 @@ const Product = ({ data, id }) => {
 
   const imgUrl = imgPath.startsWith("http")
     ? imgPath
-    : (process.env.REACT_APP_STRIPE_APP_DEV_URL || "http://localhost:1337") + imgPath;
+    : (process.env.REACT_APP_STRIPE_APP_DEV_URL || "http://https://digital-shop-backend-production.up.railway.app:1337") + imgPath;
 
   return (
     <div
