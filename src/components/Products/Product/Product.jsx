@@ -8,9 +8,10 @@ const Product = ({ data, id }) => {
   const imgPath =
     imageData?.url || imageData?.formats?.small?.url || "";
 
+  // ✅ Only prepend backend URL if relative
   const imgUrl = imgPath.startsWith("http")
     ? imgPath
-    : (process.env.REACT_APP_STRIPE_APP_DEV_URL || "http://https://digital-shop-backend-production.up.railway.app:1337") + imgPath;
+    : (process.env.REACT_APP_STRIPE_APP_DEV_URL || "https://digital-shop-backend-production.up.railway.app") + imgPath;
 
   return (
     <div
