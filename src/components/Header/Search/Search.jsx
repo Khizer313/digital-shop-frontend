@@ -11,9 +11,10 @@ const Search = ({ setSearchModal }) => {
 
   const onChange = (e) => setQuery(e.target.value);
 
-  let { data } = useFetch(
-    `/api/products?populate=*&filters[title][$contains]=${query}`
-  );
+ let { data } = useFetch(
+  `/api/products?populate=*&filters[title][$containsi]=${query}`
+);
+
 
   if (!query.length) data = null;
 
