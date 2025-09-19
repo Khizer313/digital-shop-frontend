@@ -24,33 +24,30 @@ const handlePayment = async () => {
   try {
     const stripe = await stripePromise;
 
-    // ✅ Remove "data:" wrapper
-const payload = {
-  products: cartItems.map((item) => Number(item.id)), // ✅ only IDs
-  total: cartSubTotal,
-  status: "pending",
-};
+    // ✅ Minimal payload: only IDs (numbers)
+    const payload = {
+      products: cartItems.map(item => Number(item.id)), // [24, 25, ...]
+      total: cartSubTotal,
+      status: "pending",
+    };
 
+    console.log("Checkout payload:", payload);
 
     const res = await makePaymentRequest.post("/api/orders", payload);
+    console.log("Server response:", res.data);
 
     if (!res.data?.stripeSession) {
-      console.error("No Stripe session returned:", res.data);
       alert("Order created but Stripe session missing!");
       return;
     }
 
-    await stripe.redirectToCheckout({
-      sessionId: res.data.stripeSession.id,
-    });
+    await stripe.redirectToCheckout({ sessionId: res.data.stripeSession.id });
   } catch (err) {
     console.error("Checkout Error:", err.response?.data || err.message);
-    alert(
-      "Checkout failed: " +
-        (err.response?.data?.error?.message || "Unknown error")
-    );
+    alert("Checkout failed: " + (err.response?.data?.error?.message || "Unknown error"));
   }
 };
+
 
 
 
