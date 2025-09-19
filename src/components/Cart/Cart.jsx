@@ -20,24 +20,23 @@ const Cart = () => {
     process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY
   );
 
- const handlePayment = async () => {
+const handlePayment = async () => {
   try {
     const stripe = await stripePromise;
 
-    // ✅ Wrap data correctly for Strapi
     const payload = {
       data: {
         products: cartItems.map((item) => ({
-          id: Number(item.id),
+          productId: item.id,
           title: item.title,
           price: item.price,
           quantity: item.quantity,
         })),
         total: cartSubTotal,
+        status: "pending",
       },
     };
 
-    // ✅ Strapi expects this structure
     const res = await makePaymentRequest.post("/api/orders", payload);
 
     if (!res.data?.stripeSession) {
@@ -51,9 +50,13 @@ const Cart = () => {
     });
   } catch (err) {
     console.error("Checkout Error:", err.response?.data || err.message);
-    alert("Checkout failed: " + (err.response?.data?.error?.message || "Unknown"));
+    alert(
+      "Checkout failed: " +
+        (err.response?.data?.error?.message || "Unknown error")
+    );
   }
 };
+
 
 
   const handleWhatsappSend = (userDetails) => {
