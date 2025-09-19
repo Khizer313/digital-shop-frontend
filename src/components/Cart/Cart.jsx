@@ -20,25 +20,41 @@ const Cart = () => {
     process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY
   );
 
-  const handlePayment = async () => {
-    try {
-      const stripe = await stripePromise;
-      const payload = {
+ const handlePayment = async () => {
+  try {
+    const stripe = await stripePromise;
+
+    // ✅ Wrap data correctly for Strapi
+    const payload = {
+      data: {
         products: cartItems.map((item) => ({
           id: Number(item.id),
+          title: item.title,
+          price: item.price,
           quantity: item.quantity,
         })),
-      };
+        total: cartSubTotal,
+      },
+    };
 
-      const res = await makePaymentRequest.post("/api/orders", payload);
+    // ✅ Strapi expects this structure
+    const res = await makePaymentRequest.post("/api/orders", payload);
 
-      await stripe.redirectToCheckout({
-        sessionId: res.data.stripeSession.id,
-      });
-    } catch (err) {
-      console.error("Checkout Error:", err.response?.data || err.message);
+    if (!res.data?.stripeSession) {
+      console.error("No Stripe session returned:", res.data);
+      alert("Order created but Stripe session missing!");
+      return;
     }
-  };
+
+    await stripe.redirectToCheckout({
+      sessionId: res.data.stripeSession.id,
+    });
+  } catch (err) {
+    console.error("Checkout Error:", err.response?.data || err.message);
+    alert("Checkout failed: " + (err.response?.data?.error?.message || "Unknown"));
+  }
+};
+
 
   const handleWhatsappSend = (userDetails) => {
     const { name, address, gali, nearest, homeNumber, city, contact1, contact2 } = userDetails;
