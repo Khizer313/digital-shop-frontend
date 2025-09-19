@@ -11,11 +11,12 @@ const Search = ({ setSearchModal }) => {
 
   const onChange = (e) => setQuery(e.target.value);
 
+  // ✅ Search in title, desc, and price
   let { data } = useFetch(
-    `/api/products?populate=*&filters[title][$contains]=${query}`
+    query.length
+      ? `/api/products?populate=*&filters[$or][0][title][$containsi]=${query}&filters[$or][1][desc][$containsi]=${query}&filters[$or][2][price][$containsi]=${query}`
+      : null
   );
-
-  if (!query.length) data = null;
 
   return (
     <div className="search-modal" role="dialog" aria-modal="true">
@@ -56,7 +57,10 @@ const Search = ({ setSearchModal }) => {
             const attributes = item?.attributes;
             const imageData = attributes?.image?.data?.[0]?.attributes;
             const imgUrl =
-              imageData?.url || imageData?.formats?.thumbnail?.url || "";
+              imageData?.url ||
+              imageData?.formats?.thumbnail?.url ||
+              imageData?.formats?.small?.url ||
+              "";
 
             return (
               <div
@@ -80,6 +84,7 @@ const Search = ({ setSearchModal }) => {
                 <div className="prod-details">
                   <span className="name">{attributes?.title}</span>
                   <span className="desc">{attributes?.desc}</span>
+                  <span className="price">&#8377;{attributes?.price}</span>
                 </div>
               </div>
             );
