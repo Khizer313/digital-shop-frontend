@@ -11,8 +11,9 @@ const Search = ({ setSearchModal }) => {
 
   const onChange = (e) => setQuery(e.target.value);
 
+  // case-insensitive search
   let { data } = useFetch(
-    `/api/products?populate=*&filters[title][$contains]=${query}`
+    `/api/products?populate=*&filters[title][$containsi]=${query}`
   );
 
   if (!query.length) data = null;
@@ -20,10 +21,16 @@ const Search = ({ setSearchModal }) => {
   return (
     <div className="search-modal" role="dialog" aria-modal="true">
       <Helmet>
-        <title>{query ? `Search results for "${query}"` : "Search"} | JSDEV STORE</title>
+        <title>
+          {query ? `Search results for "${query}"` : "Search"} | JSDEV STORE
+        </title>
         <meta
           name="description"
-          content={query ? `Search results for "${query}" in JSDEV STORE.` : "Search products in JSDEV STORE."}
+          content={
+            query
+              ? `Search results for "${query}" in JSDEV STORE.`
+              : "Search products in JSDEV STORE."
+          }
         />
       </Helmet>
 
@@ -46,30 +53,39 @@ const Search = ({ setSearchModal }) => {
           </div>
         )}
         <div className="search-results">
-          {data?.data?.map((item) => (
-            <div
-              className="search-result-item"
-              key={item.id}
-              onClick={() => {
-                navigate("/product/" + item.id);
-                setSearchModal(false);
-              }}
-            >
-              <div className="image-container">
-                <img
-                  src={
-                    process.env.REACT_APP_STRIPE_APP_DEV_URL +
-                    (item?.img?.[0]?.url || "")
-                  }
-                  alt={item?.title || "Product Image"}
-                />
+          {data?.data?.map((item) => {
+            const attributes = item.attributes;
+            const imageUrl =
+              process.env.REACT_APP_STRIPE_APP_DEV_URL +
+              (attributes?.image?.data?.[0]?.attributes?.url || "");
+
+            return (
+              <div
+                className="search-result-item"
+                key={item.id}
+                onClick={() => {
+                  navigate("/product/" + item.id);
+                  setSearchModal(false);
+                }}
+              >
+                {/* ✅ Product Image */}
+                <div className="image-container">
+                  {imageUrl ? (
+                    <img src={imageUrl} alt={attributes?.title || "Product"} />
+                  ) : (
+                    <div className="no-image">No Image</div>
+                  )}
+                </div>
+
+                {/* ✅ Product Details */}
+                <div className="prod-details">
+                  <span className="name">{attributes?.title}</span>
+                  <span className="desc">{attributes?.desc}</span>
+                  <span className="price">&#8377;{attributes?.price}</span>
+                </div>
               </div>
-              <div className="prod-details">
-                <span className="name">{item?.title}</span>
-                <span className="desc">{item?.desc}</span>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>
