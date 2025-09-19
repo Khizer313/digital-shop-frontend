@@ -9,51 +9,25 @@
   .categories {
     display: flex;
     flex-wrap: wrap;
-    gap: 15px;
-
-    @include md {
-      gap: 20px;
-    }
+    gap: 10px;
 
     .category-card {
-      cursor: pointer;
-      flex: 1 1 calc(100% - 10px); // full width mobile
-      max-width: calc(100% - 10px);
-      margin-bottom: 20px;
       background: #fff;
       border-radius: 10px;
       overflow: hidden;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-
-      &:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      }
-
-      @include sm {
-        flex: 1 1 calc(50% - 15px); // 2 per row
-        max-width: calc(50% - 15px);
-      }
+      cursor: pointer;
+      width: calc(50% - 5px);
 
       @include md {
-        flex: 1 1 calc(33.33% - 20px); // 3 per row
-        max-width: calc(33.33% - 20px);
-      }
-
-      @include lg {
-        flex: 1 1 calc(25% - 20px); // 4 per row
-        max-width: calc(25% - 20px);
+        width: calc(25% - 10px);
       }
 
       .category-img {
         position: relative;
         width: 100%;
-        padding-top: 75%; // maintain aspect ratio (4:3)
+        padding-top: 75%; // 4:3 ratio
+        overflow: hidden;
         background-color: rgba(0, 0, 0, 0.05);
-        display: flex;
-        align-items: center;
-        justify-content: center;
 
         img {
           position: absolute;
@@ -61,7 +35,7 @@
           left: 0;
           width: 100%;
           height: 100%;
-          object-fit: cover; // fills card area properly
+          object-fit: cover; // ensures image fills container
           transition: all 0.3s ease;
         }
       }
@@ -69,14 +43,9 @@
       h3 {
         text-align: center;
         padding: 10px 5px;
-        font-size: 14px;
+        font-size: 16px;
         font-weight: 500;
-
         @include md {
-          font-size: 16px;
-        }
-
-        @include lg {
           font-size: 18px;
         }
       }
