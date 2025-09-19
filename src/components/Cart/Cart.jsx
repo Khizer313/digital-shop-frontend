@@ -24,17 +24,16 @@ const handlePayment = async () => {
   try {
     const stripe = await stripePromise;
 
+    // ✅ Remove "data:" wrapper
     const payload = {
-      data: {
-        products: cartItems.map((item) => ({
-          productId: item.id,
-          title: item.title,
-          price: item.price,
-          quantity: item.quantity,
-        })),
-        total: cartSubTotal,
-        status: "pending",
-      },
+      products: cartItems.map((item) => ({
+        productId: Number(item.id),
+        title: item.title,
+        price: item.price,
+        quantity: item.quantity,
+      })),
+      total: cartSubTotal,
+      status: "pending",
     };
 
     const res = await makePaymentRequest.post("/api/orders", payload);
@@ -56,6 +55,7 @@ const handlePayment = async () => {
     );
   }
 };
+
 
 
 
