@@ -3,7 +3,6 @@ import "./Product.scss";
 
 const Product = ({ data, id }) => {
   const navigate = useNavigate();
-  console.log(data);
 
   // 👇 img array ka pehla element
   const imgPath =
@@ -15,8 +14,7 @@ const Product = ({ data, id }) => {
     : (process.env.REACT_APP_STRIPE_APP_DEV_URL ||
        "https://digital-shop-backend-production.up.railway.app") + imgPath;
 
-  console.log(imgPath, "path of imageeeeeeeee");
-  console.log(imgUrl, "urllllllllll of image");
+
 
   return (
     <div
