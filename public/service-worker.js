@@ -16,7 +16,7 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('message', (event) => {
   if (event.data?.type === 'SET_NOTIFICATIONS') {
     notifications = event.data.notifications || [];
-    console.log('SW received notifications:', notifications);
+    // console.log('SW received notifications:', notifications);
     checkNotifications();
   }
 });
