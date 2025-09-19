@@ -27,15 +27,15 @@ const Header = () => {
   return (
     <>
       <Helmet>
-        <title>{name?.data?.[0]?.name || "JSDEV STORE"}</title>
+        <title>{name?.data?.[0]?.name || "City Mall"}</title>
         <meta
           name="description"
-          content="Shop latest products at JSDEV STORE. Explore categories and discover new products."
+          content="Shop latest products at City Mall. Explore categories and discover new products."
         />
-        <meta property="og:title" content={name?.data?.[0]?.name || "JSDEV STORE"} />
+        <meta property="og:title" content={name?.data?.[0]?.name || "City Mall"} />
         <meta
           property="og:description"
-          content="Shop latest products at JSDEV STORE. Explore categories and discover new products."
+          content="Shop latest products at City Mall. Explore categories and discover new products."
         />
         <meta property="og:image" content="/logo192.png" />
         <link rel="canonical" href={window.location.href} />

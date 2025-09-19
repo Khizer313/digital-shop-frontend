@@ -21,10 +21,10 @@ const Search = ({ setSearchModal }) => {
   return (
     <div className="search-modal" role="dialog" aria-modal="true">
       <Helmet>
-        <title>{query ? `Search results for "${query}"` : "Search"} | JSDEV STORE</title>
+        <title>{query ? `Search results for "${query}"` : "Search"} | City Mall</title>
         <meta
           name="description"
-          content={query ? `Search results for "${query}" in JSDEV STORE.` : "Search products in JSDEV STORE."}
+          content={query ? `Search results for "${query}" in City Mall.` : "Search products in City Mall."}
         />
       </Helmet>
 

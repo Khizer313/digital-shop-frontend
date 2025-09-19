@@ -9,7 +9,7 @@ const Footer = () => {
   const { name, abouts, contacts } = useContext(Context);
 
   const aboutText = abouts?.[0]?.description || "Check your internet connection!";
-  const storeName = name?.[0]?.name || "JSDEVSTORE";
+  const storeName = name?.[0]?.name || "City Mall";
   const address = contacts?.[0]?.address || "Your address";
   const phone = contacts?.[0]?.phone || "Your Phone";
   const email = contacts?.[0]?.email || "Your Email";

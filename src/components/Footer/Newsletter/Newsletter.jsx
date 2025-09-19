@@ -6,7 +6,7 @@ const Newsletter = () => {
   return (
     <div className="newsletter-section" id="About">
       <Helmet>
-        <title>Newsletter | JSDEVSTORE</title>
+        <title>Newsletter | City Mall</title>
         <meta
           name="description"
           content="Subscribe to our newsletter to stay updated with new products and exclusive offers."
