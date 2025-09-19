@@ -1,41 +1,38 @@
 import { useNavigate } from "react-router-dom";
 import "./Product.scss";
 
-const Product = ({ data }) => {
+const Product = ({ data, id }) => {
   const navigate = useNavigate();
+  console.log(data);
 
-  // Product data destructure
-  const productId = data?.id;
-  const title = data?.title;
-  const desc = data?.desc;
-  const price = data?.price;
+  // 👇 img array ka pehla element
+  const imgPath =
+    data?.img?.[0]?.url || data?.img?.[0]?.formats?.small?.url || "";
 
-  // Image (first image from array)
-  const imageUrl = data?.img?.[0]?.url || "";
+  // ✅ If already absolute URL (Cloudinary), use directly
+  const imgUrl = imgPath.startsWith("http")
+    ? imgPath
+    : (process.env.REACT_APP_STRIPE_APP_DEV_URL ||
+       "https://digital-shop-backend-production.up.railway.app") + imgPath;
 
-  // First category (if exists)
-  const category = data?.categories?.[0]?.title;
+  console.log(imgPath, "path of imageeeeeeeee");
+  console.log(imgUrl, "urllllllllll of image");
 
   return (
-    <div 
-      className="product-card" 
-      onClick={() => navigate(`/product/${productId}`)}
+    <div
+      id="Product"
+      className="product-card"
+      onClick={() => navigate("/product/" + id)}
     >
-      {/* Image */}
-      <div className="product-image">
-        {imageUrl ? (
-          <img src={imageUrl} alt={title} />
-        ) : (
-          <div className="no-image">No Image</div>
-        )}
+      <div className="thumbnail">
+        <img
+          src={imgUrl || "/placeholder.png"}
+          alt={data?.title || "Product"}
+        />
       </div>
-
-      {/* Info */}
-      <div className="product-info">
-        <h3>{title}</h3>
-        <p className="product-desc">{desc}</p>
-        <p className="product-price">Rs {price}</p>
-        {category && <span className="product-category">{category}</span>}
+      <div className="prod-details">
+        <span className="name">{data?.title}</span>
+        <span className="price">₹{data?.price || "N/A"}</span>
       </div>
     </div>
   );
