@@ -12,6 +12,8 @@ const Product = ({ data, id }) => {
   const imgUrl = imgPath.startsWith("http")
     ? imgPath
     : (process.env.REACT_APP_STRIPE_APP_DEV_URL || "https://digital-shop-backend-production.up.railway.app") + imgPath;
+console.log(imgUrl, 'urlllllllll of img');
+console.log(imgPath, 'pathhhhhhhh of img');
 
   return (
     <div
