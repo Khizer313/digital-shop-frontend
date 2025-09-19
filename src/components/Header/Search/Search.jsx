@@ -11,12 +11,11 @@ const Search = ({ setSearchModal }) => {
 
   const onChange = (e) => setQuery(e.target.value);
 
-  // ✅ Search in title, desc, and price
   let { data } = useFetch(
-    query.length
-      ? `/api/products?populate=*&filters[$or][0][title][$containsi]=${query}&filters[$or][1][desc][$containsi]=${query}&filters[$or][2][price][$containsi]=${query}`
-      : null
+    `/api/products?populate=*&filters[title][$containsi]=${query}`
   );
+
+  if (!query.length) data = null;
 
   return (
     <div className="search-modal" role="dialog" aria-modal="true">
@@ -55,12 +54,9 @@ const Search = ({ setSearchModal }) => {
         <div className="search-results">
           {data?.data?.map((item) => {
             const attributes = item?.attributes;
-            const imageData = attributes?.image?.data?.[0]?.attributes;
-            const imgUrl =
-              imageData?.url ||
-              imageData?.formats?.thumbnail?.url ||
-              imageData?.formats?.small?.url ||
-              "";
+            const imageUrl =
+              process.env.REACT_APP_STRIPE_APP_DEV_URL +
+              (attributes?.image?.data?.[0]?.attributes?.url || "");
 
             return (
               <div
@@ -72,19 +68,11 @@ const Search = ({ setSearchModal }) => {
                 }}
               >
                 <div className="image-container">
-                  {imgUrl ? (
-                    <img
-                      src={process.env.REACT_APP_STRIPE_APP_DEV_URL + imgUrl}
-                      alt={attributes?.title || "Product Image"}
-                    />
-                  ) : (
-                    <div className="no-image">Image not available</div>
-                  )}
+                  <img src={imageUrl} alt={attributes?.title || "Product"} />
                 </div>
                 <div className="prod-details">
                   <span className="name">{attributes?.title}</span>
                   <span className="desc">{attributes?.desc}</span>
-                  <span className="price">&#8377;{attributes?.price}</span>
                 </div>
               </div>
             );
