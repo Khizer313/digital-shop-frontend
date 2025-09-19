@@ -7,7 +7,7 @@ const CartItem = () => {
   const { cartItems, handleRemoveFromCart, handleCartProductQuantity } =
     useContext(Context);
 
-  console.log(JSON.stringify(cartItems, null, 2));
+  // console.log(JSON.stringify(cartItems, null, 2));
 
   return (
     <div className="cart-products">
