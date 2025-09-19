@@ -25,11 +25,13 @@ const handlePayment = async () => {
     const stripe = await stripePromise;
 
     // ✅ Minimal payload: only IDs (numbers)
+ 
     const payload = {
-      products: cartItems.map(item => Number(item.id)), // [24, 25, ...]
-      total: cartSubTotal,
-      status: "pending",
-    };
+  products: cartItems.map(item => ({ id: Number(item.id) })), // ✅ wrap id in object
+  total: cartSubTotal,
+  status: "pending",
+};
+
 
     console.log("Checkout payload:", payload);
 
