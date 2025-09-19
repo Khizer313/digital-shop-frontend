@@ -1,36 +1,41 @@
 import { useNavigate } from "react-router-dom";
 import "./Product.scss";
 
-const Product = ({ data, id }) => {
+const Product = ({ data }) => {
   const navigate = useNavigate();
-console.log(data);
 
-  // 👇 Category.jsx ki tarah simple access
-  const imgPath = data?.img?.url || data?.img?.formats?.small?.url || "";
+  // Product data destructure
+  const productId = data?.id;
+  const title = data?.title;
+  const desc = data?.desc;
+  const price = data?.price;
 
-  // ✅ Only prepend backend URL if relative
-  const imgUrl = imgPath.startsWith("http")
-    ? imgPath
-    : (process.env.REACT_APP_STRIPE_APP_DEV_URL ||
-       "https://digital-shop-backend-production.up.railway.app") + imgPath;
-console.log(imgPath, 'path of imageeeeeeeee');
-console.log(imgUrl,"urllllllllll of image");
+  // Image (first image from array)
+  const imageUrl = data?.img?.[0]?.url || "";
+
+  // First category (if exists)
+  const category = data?.categories?.[0]?.title;
 
   return (
-    <div
-      id="Product"
-      className="product-card"
-      onClick={() => navigate("/product/" + id)}
+    <div 
+      className="product-card" 
+      onClick={() => navigate(`/product/${productId}`)}
     >
-      <div className="thumbnail">
-        <img
-          src={imgUrl || "/placeholder.png"}
-          alt={data?.title || "Product"}
-        />
+      {/* Image */}
+      <div className="product-image">
+        {imageUrl ? (
+          <img src={imageUrl} alt={title} />
+        ) : (
+          <div className="no-image">No Image</div>
+        )}
       </div>
-      <div className="prod-details">
-        <span className="name">{data?.title}</span>
-        <span className="price">₹{data?.price || "N/A"}</span>
+
+      {/* Info */}
+      <div className="product-info">
+        <h3>{title}</h3>
+        <p className="product-desc">{desc}</p>
+        <p className="product-price">Rs {price}</p>
+        {category && <span className="product-category">{category}</span>}
       </div>
     </div>
   );
