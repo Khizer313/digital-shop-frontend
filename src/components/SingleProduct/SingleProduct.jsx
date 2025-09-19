@@ -31,11 +31,15 @@ const SingleProduct = () => {
 
   const product = data?.data?.[0];
 
-  const imgUrl =
-    process.env.REACT_APP_STRIPE_APP_DEV_URL +
-    (Array.isArray(product?.img) && product?.img.length > 0
-      ? product.img[0].url
-      : "/logo192.png");
+  // ✅ Safer image path handling (like Product.jsx & Category.jsx)
+  const imageData = Array.isArray(product?.img) ? product?.img[0] : product?.img;
+  const imgPath =
+    imageData?.url || imageData?.formats?.small?.url || "/placeholder.png";
+
+  const imgUrl = imgPath.startsWith("http")
+    ? imgPath
+    : (process.env.REACT_APP_STRIPE_APP_DEV_URL ||
+        "https://digital-shop-backend-production.up.railway.app") + imgPath;
 
   return (
     <div className="single-product-main-content">
@@ -57,7 +61,7 @@ const SingleProduct = () => {
       <div className="layout">
         <div className="single-product-page">
           <div className="left">
-            <img src={imgUrl} alt={product?.title} />
+            <img src={imgUrl} alt={product?.title || "Product"} />
           </div>
 
           <div className="right">
