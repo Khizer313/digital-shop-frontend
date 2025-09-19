@@ -56,13 +56,15 @@ const Search = ({ setSearchModal }) => {
               }}
             >
               <div className="image-container">
-                <img
-                  src={
-                    process.env.REACT_APP_STRIPE_APP_DEV_URL +
-                    (item?.img?.[0]?.url || "")
-                  }
-                  alt={item?.title || "Product Image"}
-                />
+               <img
+  src={
+    item?.img?.[0]?.url?.startsWith("http")
+      ? item?.img?.[0]?.url
+      : process.env.REACT_APP_STRIPE_APP_DEV_URL + item?.img?.[0]?.url
+  }
+  alt={item?.title || "Product Image"}
+/>
+
               </div>
               <div className="prod-details">
                 <span className="name">{item?.title}</span>
