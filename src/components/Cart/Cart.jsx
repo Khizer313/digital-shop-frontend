@@ -25,16 +25,12 @@ const handlePayment = async () => {
     const stripe = await stripePromise;
 
     // ✅ Remove "data:" wrapper
-    const payload = {
-      products: cartItems.map((item) => ({
-        productId: Number(item.id),
-        title: item.title,
-        price: item.price,
-        quantity: item.quantity,
-      })),
-      total: cartSubTotal,
-      status: "pending",
-    };
+const payload = {
+  products: cartItems.map((item) => Number(item.id)), // ✅ only IDs
+  total: cartSubTotal,
+  status: "pending",
+};
+
 
     const res = await makePaymentRequest.post("/api/orders", payload);
 
