@@ -70,7 +70,7 @@ const Banner = () => {
           <div className="ctas">
             {!isInstalled && canInstall ? (
               <div className="banner-cta install-btn">
-                <button onClick={handleInstall}>Install App</button>
+                <button onClick={handleInstall}>Install Our App</button>
               </div>
             ) : (
               <div className="banner-cta">
